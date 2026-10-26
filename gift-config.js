@@ -33,7 +33,10 @@ window.GIFT_CONFIG = {
     { date: "Pure silliness", caption: "Us at our best", photo: "./assets/images/06.jpg" },
     { date: "Little moments", caption: "The tiny things that stayed", photo: "./assets/images/07.jpg" },
     { date: "My fav pic of us", caption: "Every image is better with you in it", photo: "./assets/images/08.jpg" },
-    { date: "Almost there", caption: "Two years and counting", photo: "./assets/images/09.jpg" }
+    { date: "Almost there", caption: "Two years and counting", photo: "./assets/images/09.jpg" },
+    { date: "Another favourite", caption: "Absolutely love this one", photo: "./assets/images/10.jpg" },
+    { date: "Remember this?", caption: "Hope this brings the same smile back", photo: "./assets/images/11.jpg" },
+    { date: "Okay okay, last one", caption: "I love you", photo: "./assets/images/12.jpg" }
   ],
   openWhen: [
     { t: "Open when you miss me", m: "Open your gallery, check our photos. Or Look up to the same moon, sky, and same me thinking about you." },
