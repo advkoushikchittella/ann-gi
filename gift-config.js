@@ -5,13 +5,13 @@
  * Dates should use ISO format with a timezone, e.g. 2026-10-28T00:00:00+05:30.
  */
 window.GIFT_CONFIG = {
-  from: "Your Name",
-  to: "My Love",
+  from: "Koushu",
+  to: "Gnani",
   years: 2,
   displayDate: "28 October 2026 · 12:00 AM",
   since: "2024-10-28T00:00:00+05:30",        // the day you became a couple
-  miles: "Roughly 430 km between Hyderabad and Tirupati, and none at all between us.",                                  // e.g. "7,990 km apart, 0 apart in my head"
-  title: "To my favourite person",
+  miles: "430 km between U and Me, and none at all between us.",                                  // e.g. "7,990 km apart, 0 apart in my head"
+  title: "To my cutie",
   message: "Another year of good mornings that arrive at midnight, of dinners eaten on opposite sides of a screen, and of counting the days between visits. Distance has never made us smaller. It has only made every call, every message and every goodbye matter more. Thank you for choosing this with me.",
   reasons: [
     "You make a two-inch screen feel like the same room.",
