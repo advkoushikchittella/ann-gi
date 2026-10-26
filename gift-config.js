@@ -18,7 +18,7 @@ window.GIFT_CONFIG = {
     "You make me feel absolutely loved.",
     "You turned waiting into something I look forward to."
   ],
-  surprise: { title: "A tiny surprise", instruction: "Scratch to reveal", message: "Two years down. Forever to go." },
+  surprise: { title: "A tiny surprise", instruction: "Scratch to reveal", message: "Just been Two years. Forever to go!!! Gotta bear with me now hehe." },
   nextMeet: "2026-10-28T00:00:00+05:30",      // when you next see each other
   nextTitle: "Until our second anniversary",
   nextNote: "28 October · 12:00 AM",
