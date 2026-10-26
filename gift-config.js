@@ -12,10 +12,10 @@ window.GIFT_CONFIG = {
   since: "2024-10-28T00:00:00+05:30",        // the day you became a couple
   miles: "430 km between U and Me, and none at all between us.",                                  // e.g. "7,990 km apart, 0 apart in my head"
   title: "To my cutie",
-  message: "Another year of good mornings that arrive at midnight, of dinners eaten on opposite sides of a screen, and of counting the days between visits. Distance has never made us smaller. It has only made every call, every message and every goodbye matter more. Thank you for choosing this with me.",
+  message: "Another year of good mornings, of eating on opposite sides of a screen, and of counting the days between visits. Distance has never made us smaller, and it never will. It has only made every call, every message and every byee matter more. I'm always grateful to have you, Kanna!.",
   reasons: [
     "You make a two-inch screen feel like the same room.",
-    "You remember the small things and make them feel large.",
+    "You make me feel absolutely loved.",
     "You turned waiting into something I look forward to."
   ],
   surprise: { title: "A tiny surprise", instruction: "Scratch to reveal", message: "Two years down. Forever to go." },
@@ -37,17 +37,17 @@ window.GIFT_CONFIG = {
   ],
   openWhen: [
     { t: "Open when you miss me", m: "Look up. Same moon, same sky, same me thinking about you." },
-    { t: "Open when you can’t sleep", m: "Close your eyes. I’m right there, humming something off-key." },
+    { t: "Open when you can’t sleep", m: "Close your eyes. I’m right there, humming or talking random things." },
     { t: "Open when you need a smile", m: "Remember the time we laughed until neither of us could breathe? Do that again in your head." }
   ],
-  hugReply: "Felt that. Wrapped around you from here.",
-  nightLabel: "The night of 27–28 October 2024",
-  moonLine: "Whatever the sky was doing, you were the brightest thing in it.",
+  hugReply: "Felt that? Wrapped around you from here.",
+  nightLabel: "The night that pulled us together, here's the Moon",
+  moonLine: "Whatever the sky was doing, you were the brightest.",
   ui: {
       "pageTitle": "An Anniversary, Just for You",
-      "openingLabel": "Something is tied up for you",
-      "openingHint": "Tap the heart to unravel it",
-      "openButtonLabel": "Tap the heart to open your gift",
+      "openingLabel": "Something I made for you, for us",
+      "openingHint": "Tap the heart",
+      "openButtonLabel": "Tap the heart",
       "soundOnLabel": "Turn sound off",
       "soundOffLabel": "Turn sound on",
       "soundTitle": "Toggle background music",
