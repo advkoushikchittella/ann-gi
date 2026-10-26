@@ -27,9 +27,9 @@ window.GIFT_CONFIG = {
   story: [   // name your photos 01.jpg to 09.jpg in assets/images, or change the paths
     { date: "Where I fell for you", caption: "Goa Cafe? Where it all began", photo: "./assets/images/01.jpg" },
     { date: "Our first flight", caption: "To Bareilly! Lost, happy, together", photo: "./assets/images/02.jpg" },
-    { date: "The perfect couple", caption: "Time spent together = One hour to Six hours", photo: "./assets/images/03.jpg" },
-    { date: "Favourite smile", caption: "The one I replay all day and remind myself of", photo: "./assets/images/04.jpg" },
-    { date: "A day I won’t forget", caption: "First bike ride to Tirumala", photo: "./assets/images/05.jpg" },
+    { date: "Our first bus rideee", caption: "Time spent together = One hour to Six hours", photo: "./assets/images/03.jpg" },
+    { date: "Fav Tirumala ride", caption: "can't forget that day", photo: "./assets/images/04.jpg" },
+    { date: "Fav smile", caption: "The one I replay all day and remind myself of", photo: "./assets/images/05.jpg" },
     { date: "Pure silliness", caption: "Us at our best", photo: "./assets/images/06.jpg" },
     { date: "Little moments", caption: "The tiny things that stayed", photo: "./assets/images/07.jpg" },
     { date: "My fav pic of us", caption: "Every image is better with you in it", photo: "./assets/images/08.jpg" },
