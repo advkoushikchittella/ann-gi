@@ -162,6 +162,21 @@ main>section.act>*:nth-child(3){animation-delay:.12s}main>section.act>*:nth-chil
 #envbox.open #seal{animation:crack .7s forwards}
 @keyframes sealbeat{50%{transform:translate(-50%,-50%) scale(1.09)}}
 @keyframes crack{40%{transform:translate(-50%,-50%) scale(1.25) rotate(8deg)}to{transform:translate(-50%,-20%) scale(.6) rotate(26deg);opacity:0}}
+/* weave: one keepsake feel across every page */
+main::after{content:"";position:absolute;inset:8px;border:1px solid rgba(200,161,90,.4);border-radius:16px;pointer-events:none;z-index:18}
+#dust{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:19}
+main>section:not(.deep){background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/><feColorMatrix values='0 0 0 0 .4 0 0 0 0 .3 0 0 0 0 .2 0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.rule{width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold) 20%,var(--gold) 40%,transparent 40%,transparent 60%,var(--gold) 60%,var(--gold) 80%,transparent);position:relative;overflow:visible}
+.rule::after{content:"✦";position:absolute;left:50%;top:50%;transform:translate(-50%,-54%);font-size:11px;line-height:1;color:var(--gold)}
+.pol{position:relative;transition:transform .5s var(--ease)}
+.pol::before{content:"";position:absolute;top:-10px;left:50%;width:72px;height:22px;transform:translateX(-50%) rotate(-3deg);background:rgba(232,211,166,.7);box-shadow:0 1px 3px rgba(0,0,0,.14);z-index:2}
+.pol:hover{transform:rotate(0) translateY(-5px) scale(1.02)}
+.ph{position:relative}.ph::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 30px rgba(43,18,51,.3);pointer-events:none}
+.ph img{filter:saturate(1.06) contrast(1.03)}
+main>section.act .reasons li,main>section.act details.ow{animation:up .9s var(--ease) both}
+.reasons li:nth-child(1),details.ow:nth-child(1){animation-delay:.35s!important}.reasons li:nth-child(2),details.ow:nth-child(2){animation-delay:.6s!important}.reasons li:nth-child(n+3),details.ow:nth-child(n+3){animation-delay:.85s!important}
+details.ow{transition:box-shadow .4s,background .4s}details.ow[open]{box-shadow:0 10px 26px rgba(43,18,51,.14)}
+#open::before{content:"";position:absolute;inset:0;pointer-events:none;animation:tw 4s ease-in-out infinite;background:radial-gradient(1.4px 1.4px at 12% 18%,#fff3d6,transparent),radial-gradient(1px 1px at 78% 12%,#fff3d6,transparent),radial-gradient(1.6px 1.6px at 88% 44%,#fff3d6,transparent),radial-gradient(1px 1px at 22% 70%,#fff3d6,transparent),radial-gradient(1.3px 1.3px at 64% 82%,#fff3d6,transparent),radial-gradient(1px 1px at 40% 8%,#fff3d6,transparent),radial-gradient(1.2px 1.2px at 8% 52%,#fff3d6,transparent),radial-gradient(1.1px 1.1px at 92% 76%,#fff3d6,transparent)}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   #petals{display:none}
@@ -337,7 +352,7 @@ function tick(){
   const now = Date.now();
   const start = new Date(C.since).getTime();
   const target = new Date(C.nextMeet).getTime();
-  $("days").textContent = Number.isFinite(start) ? Math.max(0, Math.floor((now - start) / 864e5)) : "—";
+  if (!cuBusy) $("days").textContent = Number.isFinite(start) ? Math.max(0, Math.floor((now - start) / 864e5)) : "—";
   if (Number.isFinite(start)){
     const dd = Math.max(0, Math.floor((now - start) / 864e5)), ms = Math.max(0, now - start);
     $("st-w").textContent = Math.floor(dd / 7); $("st-m").textContent = dd;
@@ -574,6 +589,7 @@ function pager(){
     sc.forEach((s, k) => { s.classList.toggle("act", k === i); s.setAttribute("aria-hidden", k === i ? "false" : "true"); });
     sc[i].scrollTop = 0; cur = i;
     if (i === sc.length - 1) finale();
+    if (sc[i].contains($("days"))) countUp();
     bar.style.width = (i / (sc.length - 1) * 100) + "%";
     pv.disabled = i === 0;
     nx.textContent = i === sc.length - 1 ? (C.ui.restartButton || "Start again") : (C.ui.continueButton || "Continue");
@@ -752,6 +768,24 @@ function openEnv(){
   setTimeout(() => { sec.classList.remove("sealed"); burst(18); typeMsg(); }, calm ? 0 : 2000);
 }
 $("seal").addEventListener("click", openEnv);
+let cuBusy = false, cuDone = false;
+function countUp(){
+  if (cuDone || calm) return; cuDone = cuBusy = true;
+  const el = $("days"), tgt = parseInt(el.textContent) || 0, t0 = performance.now();
+  (function f(n){ const p = Math.min(1, (n - t0) / 2000); el.textContent = Math.round(tgt * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(f); else cuBusy = false; })(t0);
+}
+function dust(){
+  if (calm) return;
+  const m = document.querySelector("main"), cv = document.createElement("canvas"); cv.id = "dust"; cv.setAttribute("aria-hidden", "true"); m.appendChild(cv);
+  const x = cv.getContext("2d"); let W, H, ps = [];
+  function size(){ const r = m.getBoundingClientRect(), d = devicePixelRatio || 1; W = r.width; H = r.height; cv.width = W * d; cv.height = H * d; x.setTransform(d, 0, 0, d, 0, 0);
+    ps = Array.from({ length: 26 }, () => ({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.6 + .5, v: .12 + Math.random() * .25, p: Math.random() * 6.3 })); }
+  size(); addEventListener("resize", size);
+  (function f(t){ x.clearRect(0, 0, W, H);
+    ps.forEach(q => { q.y -= q.v; q.x += Math.sin(t / 2000 + q.p) * .15; if (q.y < -4){ q.y = H + 4; q.x = Math.random() * W; }
+      x.globalAlpha = .25 + .45 * Math.abs(Math.sin(t / 900 + q.p)); x.fillStyle = "#c8a15a"; x.shadowColor = "#e8d3a6"; x.shadowBlur = 6; x.beginPath(); x.arc(q.x, q.y, q.r, 0, 7); x.fill(); });
+    requestAnimationFrame(f); })(0);
+}
 let typed = false;
 function typeMsg(){
   if (typed || calm) return; typed = true;
@@ -789,6 +823,7 @@ document.addEventListener("pointerdown", e => {
 });
 
 const skyGo = sky();
+dust();
 fill(); extras(); tick(); setInterval(tick, 1000); scratch(); pager(); opener(); moon();
 
 </script>
