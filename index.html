@@ -101,6 +101,8 @@ details.ow p{padding:0 20px 20px;font:italic 500 19px/1.55 var(--display)}
 #snd:focus-visible,.link:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 #petals{position:fixed;inset:0;pointer-events:none;z-index:40;overflow:hidden}
 .petal{position:absolute;top:-30px;width:12px;height:16px;background:var(--rose);border-radius:80% 0 80% 0;opacity:.8;animation:fall linear forwards}
+@keyframes fallh{to{transform:translate(var(--dx),110vh) rotate(var(--rot));opacity:.2}}
+.petal.hearts{animation-name:fallh;background:none;width:auto;height:auto;border-radius:0;line-height:1;opacity:.85}
 @keyframes fall{to{transform:translate(var(--dx),110vh) rotate(540deg);opacity:.2}}
 main>section{position:absolute;inset:0;overflow-y:auto;display:flex;flex-direction:column;background:var(--paper);padding:calc(48px + env(safe-area-inset-top,0px)) 28px calc(104px + env(safe-area-inset-bottom,0px)) !important;opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease),visibility 0s .7s}
 main>section.act{opacity:1;visibility:visible;transform:none;transition:opacity .7s var(--ease),transform .7s var(--ease),visibility 0s}
@@ -177,6 +179,26 @@ main>section.act .reasons li,main>section.act details.ow{animation:up .9s var(--
 .reasons li:nth-child(1),details.ow:nth-child(1){animation-delay:.35s!important}.reasons li:nth-child(2),details.ow:nth-child(2){animation-delay:.6s!important}.reasons li:nth-child(n+3),details.ow:nth-child(n+3){animation-delay:.85s!important}
 details.ow{transition:box-shadow .4s,background .4s}details.ow[open]{box-shadow:0 10px 26px rgba(43,18,51,.14)}
 #open::before{content:"";position:absolute;inset:0;pointer-events:none;animation:tw 4s ease-in-out infinite;background:radial-gradient(1.4px 1.4px at 12% 18%,#fff3d6,transparent),radial-gradient(1px 1px at 78% 12%,#fff3d6,transparent),radial-gradient(1.6px 1.6px at 88% 44%,#fff3d6,transparent),radial-gradient(1px 1px at 22% 70%,#fff3d6,transparent),radial-gradient(1.3px 1.3px at 64% 82%,#fff3d6,transparent),radial-gradient(1px 1px at 40% 8%,#fff3d6,transparent),radial-gradient(1.2px 1.2px at 8% 52%,#fff3d6,transparent),radial-gradient(1.1px 1.1px at 92% 76%,#fff3d6,transparent)}
+/* gold names: room for the swashes so the G is never clipped */
+.hero .script,#c-sign{line-height:1.3;padding:.2em .25em}
+.hero .script{margin:0}
+/* cinematic reveal after the heart opens */
+.hero:not(.go)>*:not(canvas){animation:none!important;opacity:0}
+.hero:not(.go) .script{animation:none!important;opacity:0}
+.hero.go .script{animation:shim 6s linear infinite,wipe 2.8s cubic-bezier(.5,0,.2,1) 1.1s both}
+.hero.go>div:nth-child(2){animation:up 1.2s var(--ease) .6s both}
+.hero.go .yr{animation:up 1.2s var(--ease) 2.7s both}
+.hero.go .rule{animation:up 1.2s var(--ease) 3.1s both}
+.hero.go #h-date{animation:up 1.2s var(--ease) 3.4s both}
+@keyframes wipe{from{clip-path:inset(-25% 100% -25% -5%);filter:blur(6px)}60%{filter:blur(0)}to{clip-path:inset(-25% -25% -25% -25%);filter:blur(0)}}
+.hero::before{content:"";position:absolute;left:50%;top:42%;width:440px;height:440px;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.5);background:radial-gradient(circle,rgba(232,211,166,.3),rgba(217,138,154,.13) 40%,transparent 68%)}
+.hero.go::before{animation:halo 2.6s ease-out .6s both,breathe 6s ease-in-out 3.2s infinite}
+@keyframes halo{35%{opacity:1}to{opacity:.65;transform:translate(-50%,-50%) scale(1.1)}}
+@keyframes breathe{0%,100%{opacity:.65;transform:translate(-50%,-50%) scale(1.1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.25)}}
+#bloom{position:fixed;inset:0;z-index:51;pointer-events:none;background:radial-gradient(circle at 50% 42%,rgba(255,236,200,.95),rgba(217,138,154,.35) 32%,transparent 62%);animation:bl 2.2s ease-out forwards}
+@keyframes bl{0%{opacity:0}18%{opacity:1}to{opacity:0}}
+.ring{position:absolute;left:50%;top:42%;width:80px;height:80px;margin:-40px;border:1.5px solid #e8d3a6;border-radius:50%;opacity:0;animation:rg 1.9s ease-out forwards}
+@keyframes rg{0%{opacity:.9;transform:scale(.3)}to{opacity:0;transform:scale(9)}}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   #petals{display:none}
@@ -385,11 +407,16 @@ function burst(n, loop){
   for (let i = 0; i < n; i++){
     const p = document.createElement("span");
     p.className = "petal";
+    if (Math.random() < .4){
+      p.classList.add("hearts"); p.textContent = "♥";
+      p.style.fontSize = (10 + Math.random() * 14) + "px"; p.style.setProperty("--rot", (Math.random() * 50 - 25) + "deg");
+      p.style.color = ["#d98a9a", "#e8a3b0", "#c8a15a", "#f3c9d1"][Math.random() * 4 | 0];
+    }
     p.style.left = Math.random() * 100 + "%";
     p.style.setProperty("--dx", (Math.random() * 120 - 60) + "px");
     p.style.animationDuration = (loop ? 7 + Math.random() * 6 : 3 + Math.random() * 3) + "s";
     p.style.animationDelay = Math.random() * (loop ? 6 : 1) + "s";
-    p.style.background = Math.random() > .5 ? "var(--rose)" : "var(--gold)";
+    if (!p.classList.contains("hearts")) p.style.background = Math.random() > .5 ? "var(--rose)" : "var(--gold)";
     p.onanimationend = () => p.remove();
     box.appendChild(p);
   }
@@ -405,10 +432,16 @@ function openIt(){
   $("snd").classList.add("on");
   setTimeout(() => { opener.setAttribute("aria-hidden", "true"); opener.inert = true; }, calm ? 0 : 900);
   $("next").focus({ preventScroll: true });
-  burst(28);
+  document.querySelector(".hero").classList.add("go");
+  if (!calm){
+    const bl = document.createElement("div"); bl.id = "bloom";
+    for (let i = 0; i < 3; i++){ const r = document.createElement("i"); r.className = "ring"; r.style.animationDelay = i * .25 + "s"; bl.appendChild(r); }
+    document.body.appendChild(bl); setTimeout(() => bl.remove(), 2400);
+    if (navigator.vibrate) navigator.vibrate([30, 40, 30, 40, 90]);
+  }
+  burst(48);
   if (Date.now() >= new Date(C.nextMeet).getTime()) setTimeout(() => fireworks(6000), 700);
-  let k = 0;
-  const iv = setInterval(() => { burst(3, true); if (++k > 8) clearInterval(iv); }, 2500);
+  setInterval(() => { if (!document.hidden) burst(3, true); }, 2500);
 }
 
 function scratch(){
