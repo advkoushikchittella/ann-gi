@@ -22,7 +22,7 @@ window.GIFT_CONFIG = {
   nextMeet: "2026-10-28T00:00:00+05:30",      // when you next see each other
   nextTitle: "Until our second anniversary",
   nextNote: "28 October · 12:00 AM",
-  closing: "Distance is just a number. You are my always.",
+  closing: "Distance is just a number. You are always mine and I'm always yours.",
   firstPlace: "Bareilly, Uttar Pradesh",
   story: [   // name your photos 01.jpg to 09.jpg in assets/images, or change the paths
     { date: "Where I fell for you", caption: "Goa Cafe? Where it all began", photo: "./assets/images/01.jpg.jpeg" },
